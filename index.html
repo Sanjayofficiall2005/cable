@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2563eb">
+    <title>CAB-LINK DIGITAL - Cable TV Billing System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <h1><i class="fas fa-tv"></i> CAB-LINK DIGITAL</h1>
+                </div>
+            </div>
+            <nav class="top-nav">
+                <a href="#" class="nav-link active" data-page="dashboard">Dashboard</a>
+                <a href="#" class="nav-link" data-page="customers">Customer</a>
+                <a href="#" class="nav-link" data-page="payments">Payment</a>
+                <a href="#" class="nav-link" data-page="expenses">Expenses</a>
+                <a href="#" class="nav-link" data-page="reports">Reports</a>
+            </nav>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="#" class="sidebar-link active" data-page="dashboard">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="customers">
+                        <i class="fas fa-users"></i> Customer
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="billing">
+                        <i class="fas fa-file-invoice"></i> Billing
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="payments">
+                        <i class="fas fa-money-bill-wave"></i> Payment
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="expenses">
+                        <i class="fas fa-chart-line"></i> Expenses
+                    </a>
+                    <a href="#" class="sidebar-link" data-page="reports">
+                        <i class="fas fa-chart-bar"></i> Reports
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page active">
+                    <h2 class="page-title">Dashboard</h2>
+                    
+                    <!-- KPI Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>Today Collection</h3>
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="kpi-value" id="today-collection">Rs. 0.00</div>
+                            <div class="progress-bar blue">
+                                <div class="progress-fill" id="today-collection-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>Monthly Collection</h3>
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="kpi-value" id="monthly-collection">Rs. 0.00</div>
+                            <div class="progress-bar purple">
+                                <div class="progress-fill" id="monthly-collection-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>Monthly Dues</h3>
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="kpi-value" id="monthly-dues">Rs. 0.00</div>
+                            <div class="progress-bar green">
+                                <div class="progress-fill" id="monthly-dues-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>Total Outstanding</h3>
+                                <i class="fas fa-money-bill-alt"></i>
+                            </div>
+                            <div class="kpi-value" id="total-outstanding">Rs. 0.00</div>
+                            <div class="progress-bar red">
+                                <div class="progress-fill" id="total-outstanding-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>Total Expire</h3>
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="kpi-value" id="total-expire">0</div>
+                            <div class="progress-bar red">
+                                <div class="progress-fill" id="total-expire-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>Online Collection</h3>
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="kpi-value" id="online-collection">Rs. 0.00</div>
+                            <div class="progress-bar red">
+                                <div class="progress-fill" id="online-collection-progress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expire Customer Table -->
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3>Expire Customer</h3>
+                            <div class="search-box">
+                                <input type="text" id="expire-search" placeholder="Search customers...">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CID</th>
+                                        <th>Customer Name</th>
+                                        <th>Phone</th>
+                                        <th>VC Number</th>
+                                        <th>STB Number</th>
+                                        <th>Amount</th>
+                                        <th>Renew Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="expire-customer-table">
+                                    <!-- Dynamic content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Customer Status Charts -->
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>Total Active Customer</h3>
+                            <div class="chart-bar">
+                                <div class="chart-label">SITI CABLE</div>
+                                <div class="chart-value" id="active-customers">0</div>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Total Inactive Customer</h3>
+                            <div class="chart-bar">
+                                <div class="chart-label">SITI CABLE</div>
+                                <div class="chart-value" id="inactive-customers">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customers Page -->
+                <div id="customers-page" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Customer Management</h2>
+                        <button class="btn btn-primary" id="add-customer-btn">
+                            <i class="fas fa-plus"></i> Add Customer
+                        </button>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3>All Customers</h3>
+                            <div class="search-box">
+                                <input type="text" id="customer-search" placeholder="Search customers...">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>CID</th>
+                                        <th>Customer Name</th>
+                                        <th>Phone</th>
+                                        <th>VC Number</th>
+                                        <th>STB Number</th>
+                                        <th>Monthly Amount</th>
+                                        <th>Paid Amount</th>
+                                        <th>Balance</th>
+                                        <th>Renew Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customers-table">
+                                    <!-- Dynamic content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payments Page -->
+                <div id="payments-page" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Payment Management</h2>
+                        <button class="btn btn-primary" id="add-payment-btn">
+                            <i class="fas fa-plus"></i> Add Payment
+                        </button>
+                    </div>
+
+                    <!-- Online Payment Summary -->
+                    <div class="kpi-grid" style="margin-bottom: 2rem;">
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>GPay Collection</h3>
+                                <i class="fab fa-google-pay"></i>
+                            </div>
+                            <div class="kpi-value" id="gpay-collection">Rs. 0.00</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>PhonePe Collection</h3>
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="kpi-value" id="phonepe-collection">Rs. 0.00</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <h3>Total Online</h3>
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                            <div class="kpi-value" id="total-online-collection">Rs. 0.00</div>
+                        </div>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="section-header">
+                            <h3>All Payments</h3>
+                            <div class="filter-buttons">
+                                <button class="btn-filter active" data-filter="all">All</button>
+                                <button class="btn-filter" data-filter="gpay">GPay</button>
+                                <button class="btn-filter" data-filter="phonepe">PhonePe</button>
+                                <button class="btn-filter" data-filter="cash">Cash</button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Payment Method</th>
+                                        <th>Type</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="payments-table">
+                                    <!-- Dynamic content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expenses Page -->
+                <div id="expenses-page" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Expense Management</h2>
+                        <button class="btn btn-primary" id="add-expense-btn">
+                            <i class="fas fa-plus"></i> Add Expense
+                        </button>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Category</th>
+                                        <th>Description</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="expenses-table">
+                                    <!-- Dynamic content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Page -->
+                <div id="reports-page" class="page">
+                    <h2 class="page-title">Reports</h2>
+                    <div class="reports-grid">
+                        <div class="report-card">
+                            <h3>Income vs Outcome</h3>
+                            <div class="report-summary">
+                                <div class="report-item">
+                                    <span>Total Income:</span>
+                                    <span class="amount income" id="total-income">Rs. 0.00</span>
+                                </div>
+                                <div class="report-item">
+                                    <span>Total Expenses:</span>
+                                    <span class="amount expense" id="total-expenses">Rs. 0.00</span>
+                                </div>
+                                <div class="report-item">
+                                    <span>Net Profit:</span>
+                                    <span class="amount" id="net-profit">Rs. 0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Page -->
+                <div id="billing-page" class="page">
+                    <div class="page-header">
+                        <h2 class="page-title">Billing & Invoices</h2>
+                        <div>
+                            <button class="btn btn-secondary" id="generate-invoice-btn" style="margin-right: 1rem;">
+                                <i class="fas fa-file-invoice"></i> Generate Invoices
+                            </button>
+                            <button class="btn btn-primary" id="generate-single-invoice-btn">
+                                <i class="fas fa-file-invoice-dollar"></i> Generate Single Invoice
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="section-card">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice #</th>
+                                        <th>Customer</th>
+                                        <th>STB Number</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invoices-table">
+                                    <!-- Dynamic content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Customer Modal -->
+    <div id="customer-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="customer-modal-title">Add Customer</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="customer-form">
+                <div class="form-group">
+                    <label>Customer Name *</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone *</label>
+                    <input type="tel" id="customer-phone" required>
+                </div>
+                <div class="form-group">
+                    <label>VC Number</label>
+                    <input type="text" id="customer-vc">
+                </div>
+                <div class="form-group">
+                    <label>STB Number *</label>
+                    <input type="text" id="customer-stb" required>
+                </div>
+                <div class="form-group">
+                    <label>Monthly Amount *</label>
+                    <input type="number" id="customer-amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Renew Date *</label>
+                    <input type="date" id="customer-renew-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="customer-status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-customer-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="payment-modal-title">Add Payment</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label>Customer *</label>
+                    <select id="payment-customer" required>
+                        <option value="">Select Customer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Amount *</label>
+                    <input type="number" id="payment-amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Payment Method *</label>
+                    <select id="payment-method" required>
+                        <option value="cash">Cash</option>
+                        <option value="gpay">GPay (Google Pay)</option>
+                        <option value="phonepe">PhonePe</option>
+                        <option value="bank">Bank Transfer</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group" id="transaction-id-group" style="display: none;">
+                    <label>Transaction ID</label>
+                    <input type="text" id="payment-transaction-id" placeholder="Enter transaction ID (optional)">
+                </div>
+                <div class="form-group">
+                    <label>Date *</label>
+                    <input type="date" id="payment-date" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-payment-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Expense Modal -->
+    <div id="expense-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="expense-modal-title">Add Expense</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="expense-form">
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="expense-category" required>
+                        <option value="equipment">Equipment</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="salary">Salary</option>
+                        <option value="rent">Rent</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description *</label>
+                    <input type="text" id="expense-description" required>
+                </div>
+                <div class="form-group">
+                    <label>Amount *</label>
+                    <input type="number" id="expense-amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Date *</label>
+                    <input type="date" id="expense-date" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-expense-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
